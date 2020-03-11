@@ -9,10 +9,14 @@
 
 .thead__align {
   padding-right: 1rem!important;
+  background-image: url('./assets/images/chevron2.svg');
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: 1.3rem;
 }
 
 .up {
-  background-image: url('./assets/images/chevron-up.svg');
+  background-image: url('./assets/images/chevron-up.svg');  
   background-position: right;
   background-repeat: no-repeat;
 }

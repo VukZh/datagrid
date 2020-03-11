@@ -1,128 +1,48 @@
 import React from 'react';
 
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, bindActionCreators, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import './App.css';
 import Table from 'react-bootstrap/Table';
+import numeral from 'numeral';
+
+import reducer from './reducer';
+//import {sym_order,name_order,cap_order,price_order,c1h_order,c24h_order,c1d_order,mine_order,set_shft,unset_shft} from './actions';
+
+import * as actions from './actions';
+
+
+
+
+
+
+
+numeral.localeData().delimiters.thousands = ' ';
+
+
+
 
 const composeEnhancers = composeWithDevTools({
 });
 
 const middlewares = [thunkMiddleware];
 
-const setOrderSym = () => {
-  store.dispatch({type: 'SYM_ORDER'});
-}
-const setOrderName = () => {
-  store.dispatch({type: 'NAME_ORDER'});
-}
-const setOrderCap = () => {
-  store.dispatch({type: 'CAP_ORDER'});
-}
-const setOrderPrice = () => {
-  store.dispatch({type: 'PRICE_ORDER'});
-}
-const setOrderChange1h = () => {
-  store.dispatch({type: 'C1H_ORDER'});
-}
-const setOrderChange24h = () => {
-  store.dispatch({type: 'C24H_ORDER'});
-}
-const setOrderChange1d = () => {
-  store.dispatch({type: 'C1D_ORDER'});
-}
-const setOrderMine = () => {
-  store.dispatch({type: 'MINE_ORDER'});
-}
-
-
-const setCtrl = () => {
-  store.dispatch({type: 'SET_CTRL'});
-}
-const unsetCtrl = () => {
-  store.dispatch({type: 'UNSET_CTRL'});
-}
-
-
-const initialState = {
-  order_sym: 'thead__align',
-  order_name: 'thead__align',
-  order_cap: 'thead__align',
-  order_price: 'thead__align',
-  order_c1h: 'thead__align',
-  order_c24h: 'thead__align',
-  order_c1d: 'thead__align',
-  order_mine: 'thead__align',
-  ctrl_btn: false,
-};
-
-const handleKeyDown = (e) => {
-  if (e.key === 'Shift' ) setCtrl();
-}
-const handleKeyUp = (e) => {
-  if (e.key === 'Shift' ) unsetCtrl();
-}
-
-
-document.addEventListener('keydown', handleKeyDown);
-document.addEventListener('keyup', handleKeyUp);
-
-const reducer = (state = initialState, action) => {
-  
-  let currState = state.ctrl_btn ? state : initialState;
-  
-  switch (action.type){      
-    case 'SYM_ORDER': 
-      if(state.order_sym === 'thead__align') return {...currState, order_sym: 'thead__align up'}
-      if(state.order_sym === 'thead__align up') return {...currState, order_sym: 'thead__align down'}
-     return {...currState, order_sym: 'thead__align'};  
-    case 'NAME_ORDER': 
-      if(state.order_name === 'thead__align') return {...currState, order_name: 'thead__align up'}
-      if(state.order_name === 'thead__align up') return {...currState, order_name: 'thead__align down'}
-     return {...currState, order_name: 'thead__align'};  
-    case 'CAP_ORDER': 
-      if(state.order_cap === 'thead__align') return {...currState, order_cap: 'thead__align up'}
-      if(state.order_cap === 'thead__align up') return {...currState, order_cap: 'thead__align down'}
-     return {...currState, order_cap: 'thead__align'};   
-    case 'PRICE_ORDER': 
-      if(state.order_price === 'thead__align') return {...currState, order_price: 'thead__align up'}
-      if(state.order_price === 'thead__align up') return {...currState, order_price: 'thead__align down'}
-     return {...currState, order_price: 'thead__align'}; 
-    case 'C1H_ORDER': 
-      if(state.order_c1h === 'thead__align') return {...currState, order_c1h: 'thead__align up'}
-      if(state.order_c1h === 'thead__align up') return {...currState, order_c1h: 'thead__align down'}
-     return {...currState, order_c1h: 'thead__align'}; 
-    case 'C24H_ORDER': 
-      if(state.order_c24h === 'thead__align') return {...currState, order_c24h: 'thead__align up'}
-      if(state.order_c24h === 'thead__align up') return {...currState, order_c24h: 'thead__align down'}
-     return {...currState, order_c24h: 'thead__align'}; 
-    case 'C1D_ORDER': 
-      if(state.order_c1d === 'thead__align') return {...currState, order_c1d: 'thead__align up'}
-      if(state.order_c1d === 'thead__align up') return {...currState, order_c1d: 'thead__align down'}
-     return {...currState, order_c1d: 'thead__align'}; 
-    case 'MINE_ORDER': 
-      if(state.order_mine === 'thead__align') return {...currState, order_mine: 'thead__align up'}
-      if(state.order_mine === 'thead__align up') return {...currState, order_mine: 'thead__align down'}
-     return {...currState, order_mine: 'thead__align'}; 
-      
-    case 'SET_CTRL': 
-      return {...state, ctrl_btn: true};   
-    case 'UNSET_CTRL': 
-      return {...state, ctrl_btn: false};        
-      
-    default:
-      return state;
-  }  
-}
-
-
-
 
 const store = createStore(reducer, composeEnhancers(
   applyMiddleware(...middlewares),
 ));
+
+const { dispatch } = store;
+                          
+
+const {sym_order,name_order,cap_order,price_order,c1h_order,c24h_order,c1d_order,mine_order,set_shft,unset_shft} = bindActionCreators (actions, dispatch);
+
+
+document.addEventListener('keydown', set_shft);
+document.addEventListener('keyup', unset_shft);
+
 
 store.subscribe(()=>{document.getElementById('sym').className = store.getState().order_sym})
 store.subscribe(()=>{document.getElementById('name').className = store.getState().order_name})
@@ -144,45 +64,45 @@ function App() {
         <Table striped bordered hover size="sm">
           <thead className='pointer'>
             <tr>
-              <th id='sym' className = 'thead__align' onClick={setOrderSym}>Symbol</th>
-              <th id='name' className='thead__align' onClick={setOrderName}>Name</th>
-              <th id='cap' className='thead__align' onClick={setOrderCap}>Market Cap</th>
-              <th id='price' className='thead__align' onClick={setOrderPrice}>Price</th>
-              <th id='c1h' className='thead__align' onClick={setOrderChange1h}>% Change 1h</th>
-              <th id='c24h' className='thead__align' onClick={setOrderChange24h}>% Change 24h</th>
-              <th id='c1d' className='thead__align' onClick={setOrderChange1d}>% Change 7d</th>
-              <th id='mine' className='thead__align' onClick={setOrderMine}>Mineable</th>
+              <th id='sym' className = 'thead__align' onClick={sym_order}>Symbol</th>
+              <th id='name' className='thead__align' onClick={name_order}>Name</th>
+              <th id='cap' className='thead__align' onClick={cap_order}>Market Cap</th>
+              <th id='price' className='thead__align' onClick={price_order}>Price</th>
+              <th id='c1h' className='thead__align' onClick={c1h_order}>Change 1h</th>
+              <th id='c24h' className='thead__align' onClick={c24h_order}>Change 24h</th>
+              <th id='c1d' className='thead__align' onClick={c1d_order}>Change 7d</th>
+              <th id='mine' className='thead__align' onClick={mine_order}>Mineable</th>
             </tr>
           </thead> 
           <tbody>
             <tr>
               <td>BTC</td>
               <td>Bitcoin</td>
-              <td>159657931152.3305</td>
-              <td>8747.27164166</td>
-              <td>0.0238659</td>
-              <td>0.225539</td>
-              <td>-1.52014</td>
+              <td>{numeral(159657931152.3305).format('$0,0.00')}</td>
+              <td>{numeral(8747.27164166).format('$0,0.00')}</td>
+              <td>{numeral(0.0238659*0.01).format('0.00%')}</td>
+              <td>{numeral(0.225539*0.01).format('0.00%')}</td>
+              <td>{numeral(-1.52014*0.01).format('0.00%')}</td>
               <td>true</td>    
             </tr>
             <tr>
               <td>ETH</td>
               <td>Ethereum</td>
-              <td>24514076946.157574</td>
-              <td>222.938535564</td>
-              <td>-0.292308</td>
-              <td>-0.0461942</td>
-              <td>-2.25433</td>
+              <td>{numeral(24514076946.157574).format('$0,0.00')}</td>
+              <td>{numeral(222.938535564).format('$0,0.00')}</td>
+              <td>{numeral(-0.292308*0.01).format('0.00%')}</td>
+              <td>{numeral(-0.0461942*0.01).format('0.00%')}</td>
+              <td>{numeral(-2.25433*0.01).format('0.00%')}</td>
               <td>true</td>    
             </tr>
             <tr>
               <td>XRP</td>
               <td>XRP</td>
-              <td>10200443740.160034</td>
-              <td>0.232995826622</td>
-              <td>0.0171207</td>
-              <td>-0.193865</td>
-              <td>-0.732131</td>
+              <td>{numeral(10200443740.160034).format('$0,0.00')}</td>
+              <td>{numeral(0.232995826622).format('$0,0.00')}</td>
+              <td>{numeral(0.0171207*0.01).format('0.00%')}</td>
+              <td>{numeral(-0.193865*0.01).format('0.00%')}</td>
+              <td>{numeral(-0.732131*0.01).format('0.00%')}</td>
               <td>false</td>    
             </tr>
           </tbody>

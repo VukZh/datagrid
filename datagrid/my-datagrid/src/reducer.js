@@ -49,10 +49,13 @@ const reducer = (state = initialState, action) => {
      return {...currState, order_mine: 'thead__align'}; 
       
     case 'SET_SHFT': 
-      return {...state, shft_btn: true};   
+      if (action.key === 'Shift')
+      return {...state, shft_btn: true}; 
+      break;
     case 'UNSET_SHFT': 
+      if (action.key === 'Shift')
       return {...state, shft_btn: false};        
-      
+      break;
     default:
       return state;
   }  

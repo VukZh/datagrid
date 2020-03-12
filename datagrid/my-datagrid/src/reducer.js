@@ -1,3 +1,5 @@
+import prepareDataForTable from './data/prepareDataForTable.js';
+
 const initialState = {
   order_sym: 'thead__align',
   order_name: 'thead__align',
@@ -8,6 +10,7 @@ const initialState = {
   order_c1d: 'thead__align',
   order_mine: 'thead__align',
   shft_btn: false,
+  data: prepareDataForTable,
 };
 
 const reducer = (state = initialState, action) => {

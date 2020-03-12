@@ -12,6 +12,14 @@ import './App.css';
 import reducer from './reducer';
 
 import * as actions from './actions';
+
+//import data from './data/dataSmall.js';
+//import prepareDataForTable from './data/prepareDataForTable.js';
+
+
+//console.log (prepareDataForTable[2]);
+
+
 const composeEnhancers = composeWithDevTools({
 });
 

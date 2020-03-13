@@ -10,9 +10,10 @@ import numeral from 'numeral';
 numeral.localeData().delimiters.thousands = ' ';
 
 const Datagrid = ({order_sym,order_name,order_cap,order_price,order_c1h,order_c24h,order_c1d,order_mine,sym_order,name_order,cap_order,price_order,c1h_order,c24h_order,c1d_order,mine_order,data}) => {
-  const rowData = data.map ((item) => {
+  const rowData = data.map ((item,ind) => {
     return (
-          <tr key = {item.symbol}>
+          <tr key = {item.id}>
+            <td>{ind + 1}</td>
             <td>{item.symbol}</td>
             <td>{item.name}</td>
             <td>{numeral(item.cap).format('$0,0.00')}</td>
@@ -28,9 +29,10 @@ const Datagrid = ({order_sym,order_name,order_cap,order_price,order_c1h,order_c2
   
   return (
     
-    <Table striped bordered hover size="sm">
+    <Table striped bordered hover size="sm" className = "height__table">
         <thead className='pointer'>
           <tr>
+            <th id='#' className = "thead">#</th>
             <th id='sym' className = {order_sym} onClick={sym_order}>Symbol</th>
             <th id='name' className={order_name} onClick={name_order}>Name</th>
             <th id='cap' className={order_cap} onClick={cap_order}>Market Cap</th>

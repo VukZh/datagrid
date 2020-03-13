@@ -2,6 +2,14 @@
   text-align: center;
 }
 
+h1 {
+    background: #272B30;
+    position: sticky;
+    top: 0px;
+    z-index: 10;
+    padding-bottom: 1rem;
+}
+
 .pointer {
   cursor: pointer;
   user-select: none;
@@ -9,10 +17,26 @@
 
 .thead__align {
   padding-right: 1rem!important;
-  background-image: url('./assets/images/chevron2.svg');
+  background: url('./assets/images/chevron2.svg') #272B30;
   background-position: right;
   background-repeat: no-repeat;
   background-size: 1.3rem;
+}
+
+.thead {
+  background: #272B30;
+}
+
+ thead tr:nth-child(1) th{
+/*    background: #272B30;*/
+    position: sticky;
+    z-index: 20;
+    top: 3.7rem;
+    padding: 0.6rem;
+  }
+
+thead::before{
+  color: red;
 }
 
 .up {

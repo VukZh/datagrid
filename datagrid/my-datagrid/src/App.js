@@ -2,6 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 
 import Datagrid from './Datagrid';
+import DataList from './DataList';
 
 import { createStore, bindActionCreators, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk'
@@ -49,7 +50,7 @@ function App() {
           <h1>
               my-datagrid
           </h1>
-        <Datagrid
+        <DataList
       />
       </div>
     </Provider>

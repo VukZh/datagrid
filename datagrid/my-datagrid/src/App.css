@@ -2,8 +2,21 @@
   text-align: center;
 }
 
+* {
+  font-size: 1vw;
+}
+
+.wrapper {
+  margin: 0 5%;
+  height: 90vh;  
+  overflow: scroll;
+}
+.wrapper.scroll {
+  overflow-x: hidden; 
+  overflow-x: auto; 
+}
+
 h1 {
-    background: #272B30;
     position: sticky;
     top: 0px;
     z-index: 10;
@@ -11,8 +24,11 @@ h1 {
 }
 
 .pointer {
-  cursor: pointer;
-  user-select: none;
+    cursor: pointer;
+    user-select: none;
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
 .thead__align {
@@ -50,4 +66,32 @@ thead::before{
   background-image: url('./assets/images/chevron-down.svg');
   background-position: right;
   background-repeat: no-repeat;
+}
+
+.col1 {
+  width: 6vw;
+}
+.col2 {
+  width: 9vw;
+}
+.col3 {
+  width: 13vw;
+}
+.col4 {
+  width: 15vw;
+}
+.col5 {
+  width: 9vw;
+}
+.col6 {
+  width: 11vw;
+}
+.col7 {
+  width: 11vw;
+}
+.col8 {
+  width: 11vw;
+}
+.col9 {
+  width: 10vw;
 }

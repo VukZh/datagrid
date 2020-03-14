@@ -9,3 +9,6 @@ export const mine_order = () => ({type: 'MINE_ORDER'});
 
 export const set_shft = (key) => ({type: 'SET_SHFT', key});
 export const unset_shft = (key) => ({type: 'UNSET_SHFT', key});
+
+export const set_mode = () => ({type: 'SET_MODE'});
+export const unset_mode = () => ({type: 'UNSET_MODE'});

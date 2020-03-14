@@ -12,13 +12,16 @@ const initialState = {
   order_mine: 'thead__align',
   shft_btn: false,
   data: prepareDataForTable,
+  mode: false,
 };
 
 const initDataTable = prepareDataForTable.concat();
 
 const reducer = (state = initialState, action) => {
   
-  let currState = state.shft_btn ? state : initialState;
+//  let currState = state.shft_btn ? state : initialState;
+  
+  let currState = state;  
   
   switch (action.type){      
     case 'SYM_ORDER': 
@@ -60,6 +63,9 @@ const reducer = (state = initialState, action) => {
         return {...currState, order_mine: 'thead__align', data: initDataTable}; 
       }
       
+      
+      
+      
     case 'SET_SHFT': 
       if (action.key === 'Shift')
       return {...state, shft_btn: true}; 
@@ -68,6 +74,15 @@ const reducer = (state = initialState, action) => {
       if (action.key === 'Shift')
       return {...state, shft_btn: false};        
       break;
+      
+    case 'SET_MODE':
+      return {...state, mode: true}; 
+      break;
+    case 'UNSET_MODE':
+      return {...state, mode: false};        
+      break;
+            
+      
     default:
       return state;
   }  

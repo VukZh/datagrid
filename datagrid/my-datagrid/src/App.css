@@ -3,32 +3,60 @@
 }
 
 * {
-  font-size: 1vw;
+  font-size: 0.8vw;
+}
+
+.border {
+  border: 1px solid gray;
 }
 
 .wrapper {
-  margin: 0 5%;
-  height: 90vh;  
-  overflow: scroll;
+  width: 98%;
+  margin-left: 2rem;
 }
 .wrapper.scroll {
   overflow-x: hidden; 
   overflow-x: auto; 
 }
 
+.wrapperS {
+  width: 97.6%;
+}
+.wrapperF {
+  width: 100%;
+}
+
 h1 {
+    background-color: #272B30;
+/*
     position: sticky;
-    top: 0px;
+    top: 0;
+*/
     z-index: 10;
     padding-bottom: 1rem;
+    margin: 0;
+}
+
+.form {
+    background-color: #272B30;
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    padding-bottom: 1rem;
+    margin: 0;
 }
 
 .pointer {
     cursor: pointer;
     user-select: none;
     position: sticky;
-    top: 0;
-    z-index: 10;
+    top: 2.1rem;
+    z-index: 50;
+    width: 99.1%;
+    height: 2rem;
+    color: white;
+  font-weight: bold;
+  
 }
 
 .thead__align {

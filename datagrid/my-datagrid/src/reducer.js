@@ -8,59 +8,89 @@ const initialState = {
   order_price: 'thead__align',
   order_c1h: 'thead__align',
   order_c24h: 'thead__align',
-  order_c1d: 'thead__align',
+  order_c7d: 'thead__align',
   order_mine: 'thead__align',
   shft_btn: false,
   data: prepareDataForTable,
   mode: false,
+  filter_name: '',
+  filter_c1h: 0,
+  filter_c24h: 0,
+  filter_c7d: 0,
+  filter_mine: '',
 };
 
 const initDataTable = prepareDataForTable.concat();
 
+
+
+
+
 const reducer = (state = initialState, action) => {
+
   
-//  let currState = state.shft_btn ? state : initialState;
   
-  let currState = state;  
+  
+  const calcChainFilter = () => {
+    const f1 = prepareDataForTable.concat();
+//    console.log('f1 ' + f1.length);
+    const f2 = (state.filter_name !== '') ? f1.filter(item => (item.symbol.toLowerCase().includes(state.filter_name) || item.name.toLowerCase().includes(state.filter_name))) : f1;
+//    console.log('f2 ' + f2.length + ' ' + state.filter_name);
+    const f3 = (state.filter_c1h !== 0) ? f2.filter(item => item.c1h > 0) : f2;
+//    console.log('f3 ' + f3.length + ' ' + state.filter_c1h);
+    const f4 = (state.filter_c24h !== 0) ? f3.filter(item => item.c24h > 0) : f3;
+//    console.log('f4 ' + f4.length + ' ' + state.filter_c24h);
+    const f5 = (state.filter_c7d !== 0) ? f4.filter(item => item.c7d > 0) : f4;
+//    console.log('f5 ' + f5.length + ' ' + state.filter_c7d);
+    let f6;
+    if (state.filter_mine === 'true') {f6 = f5.filter(item => item.mine === 'true')}
+    else if (state.filter_mine === 'false') {f6 = f5.filter(item => item.mine === 'false')}
+    else f6 = f5;
+//    console.log('f6 ' + f6.length + ' ' + state.filter_mine);
+    return f6;  
+  }
+  
+  
+  
   
   switch (action.type){      
     case 'SYM_ORDER': 
-      if(state.order_sym === 'thead__align') return {...currState, order_sym: 'thead__align up', data: prepareDataForTable.sort(sort.sortSymU)}
-      if(state.order_sym === 'thead__align up') return {...currState, order_sym: 'thead__align down', data: prepareDataForTable.sort(sort.sortSymD)}
-     return {...currState, order_sym: 'thead__align', data: initDataTable};  
+      if(state.order_sym === 'thead__align') return {...state, order_sym: 'thead__align up', data: state.data.sort(sort.sortSymU)}
+      if(state.order_sym === 'thead__align up') return {...state, order_sym: 'thead__align down', data: state.data.sort(sort.sortSymD)}
+     return {...state, order_sym: 'thead__align', data: initDataTable};  
     case 'NAME_ORDER': 
-      if(state.order_name === 'thead__align') return {...currState, order_name: 'thead__align up', data: prepareDataForTable.sort(sort.sortNameU)}
-      if(state.order_name === 'thead__align up') return {...currState, order_name: 'thead__align down', data: prepareDataForTable.sort(sort.sortNameD)}
-     return {...currState, order_name: 'thead__align', data: initDataTable};  
+      if(state.order_name === 'thead__align') return {...state, order_name: 'thead__align up', data: state.data.sort(sort.sortNameU)}
+      if(state.order_name === 'thead__align up') return {...state, order_name: 'thead__align down', data: state.data.sort(sort.sortNameD)}
+     return {...state, order_name: 'thead__align', data: initDataTable};  
     case 'CAP_ORDER': 
-      if(state.order_cap === 'thead__align') return {...currState, order_cap: 'thead__align up', data: prepareDataForTable.sort(sort.sortCapU)}
-      if(state.order_cap === 'thead__align up') return {...currState, order_cap: 'thead__align down', data: prepareDataForTable.sort(sort.sortCapD)}
-     return {...currState, order_cap: 'thead__align', data: initDataTable};   
+      if(state.order_cap === 'thead__align') return {...state, order_cap: 'thead__align up', data: state.data.sort(sort.sortCapU)}
+      if(state.order_cap === 'thead__align up') return {...state, order_cap: 'thead__align down', data: state.data.sort(sort.sortCapD)}
+     return {...state, order_cap: 'thead__align', data: initDataTable};   
     case 'PRICE_ORDER': 
-      if(state.order_price === 'thead__align') return {...currState, order_price: 'thead__align up', data: prepareDataForTable.sort(sort.sortPriceU)}
-      if(state.order_price === 'thead__align up') return {...currState, order_price: 'thead__align down', data: prepareDataForTable.sort(sort.sortPriceD)}
-     return {...currState, order_price: 'thead__align', data: initDataTable}; 
+      if(state.order_price === 'thead__align') return {...state, order_price: 'thead__align up', data: state.data.sort(sort.sortPriceU)}
+      if(state.order_price === 'thead__align up') return {...state, order_price: 'thead__align down', data: state.data.sort(sort.sortPriceD)}
+     return {...state, order_price: 'thead__align', data: initDataTable}; 
     case 'C1H_ORDER': 
-      if(state.order_c1h === 'thead__align') return {...currState, order_c1h: 'thead__align up', data: prepareDataForTable.sort(sort.sortC1hU)}
-      if(state.order_c1h === 'thead__align up') return {...currState, order_c1h: 'thead__align down', data: prepareDataForTable.sort(sort.sortC1hD)}
-     return {...currState, order_c1h: 'thead__align', data: initDataTable}; 
+      if(state.order_c1h === 'thead__align') return {...state, order_c1h: 'thead__align up', data: state.data.sort(sort.sortC1hU)}
+      if(state.order_c1h === 'thead__align up') return {...state, order_c1h: 'thead__align down', data: state.data.sort(sort.sortC1hD)}
+     return {...state, order_c1h: 'thead__align', data: initDataTable}; 
     case 'C24H_ORDER': 
-      if(state.order_c24h === 'thead__align') return {...currState, order_c24h: 'thead__align up', data: prepareDataForTable.sort(sort.sortC24hU)}
-      if(state.order_c24h === 'thead__align up') return {...currState, order_c24h: 'thead__align down', data: prepareDataForTable.sort(sort.sortC24hD)}
-     return {...currState, order_c24h: 'thead__align', data: initDataTable}; 
-    case 'C1D_ORDER': 
-      if(state.order_c1d === 'thead__align') return {...currState, order_c1d: 'thead__align up', data: prepareDataForTable.sort(sort.sortC1dU)}
-      if(state.order_c1d === 'thead__align up') return {...currState, order_c1d: 'thead__align down', data: prepareDataForTable.sort(sort.sortC1dD)}
-     return {...currState, order_c1d: 'thead__align', data: initDataTable}; 
+      if(state.order_c24h === 'thead__align') return {...state, order_c24h: 'thead__align up', data: state.data.sort(sort.sortC24hU)}
+      if(state.order_c24h === 'thead__align up') return {...state, order_c24h: 'thead__align down', data: state.data.sort(sort.sortC24hD)}
+     return {...state, order_c24h: 'thead__align', data: initDataTable}; 
+    case 'C7D_ORDER': 
+      if(state.order_c7d === 'thead__align') return {...state, order_c7d: 'thead__align up', data: state.data.sort(sort.sortC7dU)}
+      if(state.order_c7d === 'thead__align up') return {...state, order_c7d: 'thead__align down', data: state.data.sort(sort.sortC7dD)}
+     return {...state, order_c7d: 'thead__align', data: initDataTable}; 
     case 'MINE_ORDER': 
       if(state.order_mine === 'thead__align') {
-        return {...currState, order_mine: 'thead__align up', data: prepareDataForTable.sort(sort.sortMineU)}
+        return {...state, order_mine: 'thead__align up', data: state.data.sort(sort.sortMineU)}
       }
       if(state.order_mine === 'thead__align up') {
-        return {...currState, order_mine: 'thead__align down', data: prepareDataForTable.sort(sort.sortMineD) }
+        return {...state, order_mine: 'thead__align down', data: state.data.sort(sort.sortMineD) }
       }
       else {
-        return {...currState, order_mine: 'thead__align', data: initDataTable}; 
+        return {...state, order_mine: 'thead__align', data: initDataTable}; 
       }
       
       
@@ -69,10 +99,12 @@ const reducer = (state = initialState, action) => {
     case 'SET_SHFT': 
       if (action.key === 'Shift')
       return {...state, shft_btn: true}; 
+      else return {...state };
       break;
     case 'UNSET_SHFT': 
       if (action.key === 'Shift')
-      return {...state, shft_btn: false};        
+      return {...state, shft_btn: false}; 
+      else return {...state };
       break;
       
     case 'SET_MODE':
@@ -83,35 +115,31 @@ const reducer = (state = initialState, action) => {
       break;
      
     case 'MINE_FILTER': 
-      if (action.val === 'true')
-      return {...currState, data: prepareDataForTable.filter(item => item.mine === 'true')}; 
-      if (action.val === 'false')
-      return {...currState, data: prepareDataForTable.filter(item => item.mine === 'false')}; 
-            if (action.val === '')
-      return {...currState, data: prepareDataForTable};
-      break;   
+      state.filter_mine = '';
+      if (action.val === 'true') state.filter_mine = 'true';
+      if (action.val === 'false') state.filter_mine = 'false';
+
+      return {...state, data: calcChainFilter()};
+      break; 
 
     case 'CH1H_FILTER': 
-      if (action.val === '> 0')
-      return {...currState, data: prepareDataForTable.filter(item => item.c1h > 0)};
-      return {...currState, data: prepareDataForTable};
+      state.filter_c1h = action.val ? 1 : 0;
+      return {...state, data: calcChainFilter()};
       break; 
       
     case 'CH24H_FILTER': 
-      if (action.val === '> 0')
-      return {...currState, data: prepareDataForTable.filter(item => item.c24h > 0)};
-      return {...currState, data: prepareDataForTable};
-      break;       
+      state.filter_c24h = action.val ? 1 : 0;
+      return {...state, data: calcChainFilter()};
+      break;      
       
-    case 'CH1D_FILTER': 
-      if (action.val === '> 0')
-      return {...currState, data: prepareDataForTable.filter(item => item.c1d > 0)};
-      return {...currState, data: prepareDataForTable};
-      break;    
+    case 'CH7D_FILTER': 
+      state.filter_c7d = action.val ? 1 : 0;
+      return {...state, data: calcChainFilter()};
+      break;  
 
     case 'NAME_SEARCH': 
-      console.log('>>> ' + action.val)
-      return {...currState, data: prepareDataForTable.filter(item => (item.symbol.toLowerCase().includes(action.val) || item.name.toLowerCase().includes(action.val)))};
+      state.filter_name = action.val;
+      return {...state, data: calcChainFilter()};
       break;        
 
       

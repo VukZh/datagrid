@@ -27,8 +27,8 @@ export const sortC1hD = (prev, next) => prev.c1h - next.c1h;
 export const sortC24hU = (prev, next) => next.c24h - prev.c24h;
 export const sortC24hD = (prev, next) => prev.c24h - next.c24h;
 
-export const sortC1dU = (prev, next) => next.c1d - prev.c1d;
-export const sortC1dD = (prev, next) => prev.c1d - next.c1d;
+export const sortC7dU = (prev, next) => next.c7d - prev.c7d;
+export const sortC7dD = (prev, next) => prev.c7d - next.c7d;
 
 export const sortMineU = (prev, next) => {
     if ( prev.mine < next.mine ) return -1;

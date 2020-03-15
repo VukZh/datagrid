@@ -6,7 +6,7 @@ import * as actions from './actions';
 import { FixedSizeList } from 'react-window';
 
 import Table from 'react-bootstrap/Table';
-import {Container, Row, Col} from 'react-bootstrap';
+import {Row, Col} from 'react-bootstrap';
 import ListGroup from 'react-bootstrap/ListGroup';
 
 
@@ -17,24 +17,6 @@ numeral.localeData().delimiters.thousands = ' ';
 
 const DataContainerFast = ({order_sym,order_name,order_cap,order_price,order_c1h,order_c24h,order_c1d,order_mine,sym_order,name_order,cap_order,price_order,c1h_order,c24h_order,c1d_order,mine_order,data}) => {
   
-  const rowData = data.map ((item,ind) => {
-    return (  
- 
-              <Row>
-                  <Col xs={1}>{ind + 1}</Col>
-                  <Col xs={1}>{item.symbol}</Col>
-                  <Col xs={2}>{item.name}</Col>
-                  <Col xs={2}>{numeral(item.cap).format('$0,0.00')}</Col>
-                  <Col xs={1}>{numeral(item.price).format('$0,0.00')}</Col>
-                  <Col xs={1}>{numeral(item.c1h).format('0.00%')}</Col>
-                  <Col xs={1}>{numeral(item.c24h).format('0.00%')}</Col>
-                  <Col xs={1}>{numeral(item.c1d).format('0.00%')}</Col>
-                  <Col xs={1}>{item.mine}</Col>
-              </Row>
-
-    )
-  });
-
   const rowDataFast = ({ index, style }) => (
               <Row style={style} key = {data[index].id * 3}>
                   <Col xs={1} className = {'border'}>{index + 1}</Col>
@@ -72,9 +54,9 @@ const DataContainerFast = ({order_sym,order_name,order_cap,order_price,order_c1h
 
           <FixedSizeList
                     className="List wrapperF"
-                    height={window.innerHeight * 0.85}
+                    height={window.innerHeight * 0.82}
                     itemCount={data.length}
-                    itemSize={24}
+                    itemSize={25}
                       >
                 {rowDataFast} 
           </FixedSizeList>

@@ -81,7 +81,43 @@ const reducer = (state = initialState, action) => {
     case 'UNSET_MODE':
       return {...state, mode: false};        
       break;
-            
+     
+    case 'MINE_FILTER': 
+      if (action.val === 'true')
+      return {...currState, data: prepareDataForTable.filter(item => item.mine === 'true')}; 
+      if (action.val === 'false')
+      return {...currState, data: prepareDataForTable.filter(item => item.mine === 'false')}; 
+            if (action.val === '')
+      return {...currState, data: prepareDataForTable};
+      break;   
+
+    case 'CH1H_FILTER': 
+      if (action.val === '> 0')
+      return {...currState, data: prepareDataForTable.filter(item => item.c1h > 0)};
+      return {...currState, data: prepareDataForTable};
+      break; 
+      
+    case 'CH24H_FILTER': 
+      if (action.val === '> 0')
+      return {...currState, data: prepareDataForTable.filter(item => item.c24h > 0)};
+      return {...currState, data: prepareDataForTable};
+      break;       
+      
+    case 'CH1D_FILTER': 
+      if (action.val === '> 0')
+      return {...currState, data: prepareDataForTable.filter(item => item.c1d > 0)};
+      return {...currState, data: prepareDataForTable};
+      break;    
+
+    case 'NAME_SEARCH': 
+      console.log('>>> ' + action.val)
+      return {...currState, data: prepareDataForTable.filter(item => (item.symbol.toLowerCase().includes(action.val) || item.name.toLowerCase().includes(action.val)))};
+      break;        
+
+      
+      
+      
+      
       
     default:
       return state;

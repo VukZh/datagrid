@@ -50,14 +50,26 @@ h1 {
     cursor: pointer;
     user-select: none;
     position: sticky;
-    top: 2.1rem;
+    top: 4rem;
     z-index: 50;
     width: 99.1%;
     height: 2rem;
     color: white;
-  font-weight: bold;
-  
+    font-weight: bold;  
 }
+.filter
+{
+    user-select: none;
+    width: 99.1%;
+    height: 2rem;
+}
+.filter__wrapper {
+    position: sticky;
+    top: 2.1rem;
+    z-index: 50;
+    background-color: #272B30;
+}
+
 
 .thead__align {
   padding-right: 1rem!important;

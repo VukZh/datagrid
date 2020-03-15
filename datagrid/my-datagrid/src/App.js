@@ -4,8 +4,12 @@ import { Provider } from 'react-redux';
 import Datagrid from './Datagrid';
 import DatagridFast from './DatagridFast';
 
-import DataList from './DataList';
+import DataListSlow from './DataListSlow';
 import DataListFast from './DataListFast';
+import DataList from './DataList';
+
+import Filter from './Filter';
+
 
 
 import DataContainerSlow from './DataContainerSlow';
@@ -75,6 +79,10 @@ function App() {
             />
         </Form>
       </div>
+      <div className="filter__wrapper">
+            <Filter />     
+      </div>
+                   
         <DataContainer
       />
       </div>

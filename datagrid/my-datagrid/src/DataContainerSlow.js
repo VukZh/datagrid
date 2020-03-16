@@ -27,7 +27,7 @@ const DataContainer = ({order_sym,order_name,order_cap,order_price,order_c1h,ord
                   <Col xs={1} className = {'border'}>{numeral(item.c1h).format('0.00%')}</Col>
                   <Col xs={1} className = {'border'}>{numeral(item.c24h).format('0.00%')}</Col>
                   <Col xs={1} className = {'border'}>{numeral(item.c7d).format('0.00%')}</Col>
-                  <Col xs={1} className = {'border'}>{item.mine}</Col>
+                  <Col xs={1} className = {'border'}>{item.mine && <div className = 'mining'></div>}</Col>
               </Row>
 
     )

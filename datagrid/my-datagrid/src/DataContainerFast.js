@@ -27,11 +27,14 @@ const DataContainerFast = ({order_sym,order_name,order_cap,order_price,order_c1h
                   <Col xs={1} className = {'border'}>{numeral(data[index].c1h).format('0.00%')}</Col>
                   <Col xs={1} className = {'border'}>{numeral(data[index].c24h).format('0.00%')}</Col>
                   <Col xs={1} className = {'border'}>{numeral(data[index].c7d).format('0.00%')}</Col>
-                  <Col xs={1} className = {'border'}>{data[index].mine}</Col>
+                  <Col xs={1} className = {'border'}>{data[index].mine && <div className = 'mining'></div>}</Col>
               </Row>           
 
   );
   
+
+
+
       const height = window.innerHeight
       || document.documentElement.clientHeight
       || document.body.clientHeight;

@@ -43,8 +43,8 @@ const reducer = (state = initialState, action) => {
     const f5 = (state.filter_c7d !== 0) ? f4.filter(item => item.c7d > 0) : f4;
 //    console.log('f5 ' + f5.length + ' ' + state.filter_c7d);
     let f6;
-    if (state.filter_mine === 'true') {f6 = f5.filter(item => item.mine === 'true')}
-    else if (state.filter_mine === 'false') {f6 = f5.filter(item => item.mine === 'false')}
+    if (state.filter_mine === 'true') {f6 = f5.filter(item => item.mine === true)}
+    else if (state.filter_mine === 'false') {f6 = f5.filter(item => item.mine === false)}
     else f6 = f5;
 //    console.log('f6 ' + f6.length + ' ' + state.filter_mine);
     return f6;  
@@ -116,9 +116,9 @@ const reducer = (state = initialState, action) => {
       break;
      
     case 'MINE_FILTER': 
-      state.filter_mine = '';
       if (action.val === 'true') state.filter_mine = 'true';
       if (action.val === 'false') state.filter_mine = 'false';
+      if (action.val === '') state.filter_mine = '';
 
       return {...state, data: calcChainFilter()};
       break; 

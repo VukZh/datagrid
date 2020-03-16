@@ -11,7 +11,7 @@ const dataList = data.reduce ((arr, item, ind) => arr.concat({
   c1h: item.quote.USD.percent_change_1h * 0.01,
   c24h: item.quote.USD.percent_change_24h * 0.01,
   c7d: item.quote.USD.percent_change_7d * 0.01,
-  mine: item.tags.length ? 'true' : 'false',
+  mine: item.tags.length ? true : false,
 
 }),[]);
 

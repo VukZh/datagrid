@@ -16,6 +16,10 @@ import DataContainerSlow from './DataContainerSlow';
 import DataContainerFast from './DataContainerFast';
 import DataContainer from './DataContainer';
 
+import DownloadCSV from './DownloadCSV';
+
+
+
 
 
 import { createStore, bindActionCreators, applyMiddleware } from 'redux';
@@ -67,9 +71,7 @@ function App() {
   return (
     <Provider store = { store }>
       <div className="App">
-          <h1>
-              my-datagrid
-          </h1>
+
         <div className="form">
           <Form>
             <Form.Check onChange = {(e)=>{e.target.checked ? set_mode() : unset_mode()}}   
@@ -78,6 +80,7 @@ function App() {
               label="Set react-window for table"
             />
         </Form>
+              <DownloadCSV/>
       </div>
       <div className="filter__wrapper">
             <Filter />     

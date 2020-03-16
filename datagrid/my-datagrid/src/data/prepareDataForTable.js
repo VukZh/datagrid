@@ -1,5 +1,5 @@
-//import data from "./dataSmall.js"
-import data from "./dataBig.js"
+import data from "./dataSmall.js"
+//import data from "./dataBig.js"
 
 const dataList = data.reduce ((arr, item, ind) => arr.concat({
   ind: ind,

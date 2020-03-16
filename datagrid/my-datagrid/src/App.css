@@ -28,10 +28,6 @@
 
 h1 {
     background-color: #272B30;
-/*
-    position: sticky;
-    top: 0;
-*/
     z-index: 10;
     padding-bottom: 1rem;
     margin: 0;
@@ -50,7 +46,7 @@ h1 {
     cursor: pointer;
     user-select: none;
     position: sticky;
-    top: 4rem;
+    top: 4.5rem;
     z-index: 50;
     width: 99.1%;
     height: 2rem;
@@ -65,7 +61,7 @@ h1 {
 }
 .filter__wrapper {
     position: sticky;
-    top: 2.1rem;
+    top: 2.5rem;
     z-index: 50;
     background-color: #272B30;
 }
@@ -144,3 +140,35 @@ thead::before{
 .col9 {
   width: 10vw;
 }
+
+.download-wrapper {
+  cursor: pointer;
+  position: absolute;
+  top: 1.2rem;
+  width: 100%;
+  margin: 0 0 0 60rem;
+  height: 1.3rem;
+}
+
+
+.download-wrapper:hover::after { 
+    content: attr(data-title);
+    position: absolute;
+    left: 39%; top: -4px;
+    z-index: 50;
+    background: white;
+    padding: 2px 4px;
+    border: 1px solid black;
+    border-radius: 4px;
+    color: black;
+    font-size: 0.8rem;
+}
+  
+.CSVicons {
+    background-image: url('./assets/images/download.svg');  
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 1.2rem;
+}
+
+

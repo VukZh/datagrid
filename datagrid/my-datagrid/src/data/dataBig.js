@@ -1,5 +1,4 @@
 const data = [
-
   {
     "id": 1,
     "name": "Bitcoin",
@@ -78291,7 +78290,7 @@ const data = [
         "last_updated": "2020-03-12T15:37:03.000Z"
       }
     }
-        },
+  }
 
 
 
@@ -91336,7 +91335,7 @@ const data = [
         "last_updated": "2020-03-12T15:41:07.000Z"
       }
     }
-        },
+  }
 
 
 
@@ -97897,7 +97896,7 @@ const data = [
         "last_updated": "2020-03-12T15:40:05.000Z"
       }
     }
-        }
+  }
 
 ]
 

@@ -57,31 +57,32 @@ const reducer = (state = initialState, action) => {
     case 'SYM_ORDER': 
       if(state.order_sym === 'thead__align') return {...state, order_sym: 'thead__align up', data: state.data.sort(sort.sortSymU)}
       if(state.order_sym === 'thead__align up') return {...state, order_sym: 'thead__align down', data: state.data.sort(sort.sortSymD)}
-     return {...state, order_sym: 'thead__align', data: initDataTable};  
+     return {...state, order_sym: 'thead__align', data: state.data.sort(sort.sortDef)};  
+     break;
     case 'NAME_ORDER': 
       if(state.order_name === 'thead__align') return {...state, order_name: 'thead__align up', data: state.data.sort(sort.sortNameU)}
       if(state.order_name === 'thead__align up') return {...state, order_name: 'thead__align down', data: state.data.sort(sort.sortNameD)}
-     return {...state, order_name: 'thead__align', data: initDataTable};  
+     return {...state, order_name: 'thead__align', data: state.data.sort(sort.sortDef)};  
     case 'CAP_ORDER': 
       if(state.order_cap === 'thead__align') return {...state, order_cap: 'thead__align up', data: state.data.sort(sort.sortCapU)}
       if(state.order_cap === 'thead__align up') return {...state, order_cap: 'thead__align down', data: state.data.sort(sort.sortCapD)}
-     return {...state, order_cap: 'thead__align', data: initDataTable};   
+     return {...state, order_cap: 'thead__align', data: state.data.sort(sort.sortDef)};   
     case 'PRICE_ORDER': 
       if(state.order_price === 'thead__align') return {...state, order_price: 'thead__align up', data: state.data.sort(sort.sortPriceU)}
       if(state.order_price === 'thead__align up') return {...state, order_price: 'thead__align down', data: state.data.sort(sort.sortPriceD)}
-     return {...state, order_price: 'thead__align', data: initDataTable}; 
+     return {...state, order_price: 'thead__align', data: state.data.sort(sort.sortDef)}; 
     case 'C1H_ORDER': 
       if(state.order_c1h === 'thead__align') return {...state, order_c1h: 'thead__align up', data: state.data.sort(sort.sortC1hU)}
       if(state.order_c1h === 'thead__align up') return {...state, order_c1h: 'thead__align down', data: state.data.sort(sort.sortC1hD)}
-     return {...state, order_c1h: 'thead__align', data: initDataTable}; 
+     return {...state, order_c1h: 'thead__align', data: state.data.sort(sort.sortDef)}; 
     case 'C24H_ORDER': 
       if(state.order_c24h === 'thead__align') return {...state, order_c24h: 'thead__align up', data: state.data.sort(sort.sortC24hU)}
       if(state.order_c24h === 'thead__align up') return {...state, order_c24h: 'thead__align down', data: state.data.sort(sort.sortC24hD)}
-     return {...state, order_c24h: 'thead__align', data: initDataTable}; 
+     return {...state, order_c24h: 'thead__align', data: state.data.sort(sort.sortDef)}; 
     case 'C7D_ORDER': 
       if(state.order_c7d === 'thead__align') return {...state, order_c7d: 'thead__align up', data: state.data.sort(sort.sortC7dU)}
       if(state.order_c7d === 'thead__align up') return {...state, order_c7d: 'thead__align down', data: state.data.sort(sort.sortC7dD)}
-     return {...state, order_c7d: 'thead__align', data: initDataTable}; 
+     return {...state, order_c7d: 'thead__align', data: state.data.sort(sort.sortDef)}; 
     case 'MINE_ORDER': 
       if(state.order_mine === 'thead__align') {
         return {...state, order_mine: 'thead__align up', data: state.data.sort(sort.sortMineU)}
@@ -90,7 +91,7 @@ const reducer = (state = initialState, action) => {
         return {...state, order_mine: 'thead__align down', data: state.data.sort(sort.sortMineD) }
       }
       else {
-        return {...state, order_mine: 'thead__align', data: initDataTable}; 
+        return {...state, order_mine: 'thead__align', data: state.data.sort(sort.sortDef)}; 
       }
       
       

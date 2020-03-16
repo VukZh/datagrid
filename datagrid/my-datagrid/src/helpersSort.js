@@ -1,3 +1,5 @@
+export const sortDef = (prev, next) => prev.ind - next.ind;
+
 export const sortSymU = (prev, next) => {
     if ( prev.symbol < next.symbol ) return -1;
     if ( prev.symbol > next.symbol ) return 1;

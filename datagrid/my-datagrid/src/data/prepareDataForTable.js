@@ -1,7 +1,8 @@
 //import data from "./dataSmall.js"
 import data from "./dataBig.js"
 
-const dataList = data.reduce ((arr, item) => arr.concat({
+const dataList = data.reduce ((arr, item, ind) => arr.concat({
+  ind: ind,
   id: item.id,
   symbol: item.symbol,
   name: item.name,

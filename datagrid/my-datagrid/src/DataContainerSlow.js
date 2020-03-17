@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as actions from "./actions";
 
-import { Row, Col } from "react-bootstrap";
+import {  Row, Col } from "react-bootstrap";
 
 import numeral from "numeral";
 
@@ -17,7 +17,8 @@ const DataContainer = ({
   order_c1h,
   order_c24h,
   order_c7d,
-  order_mine,
+  order_mine,  
+  del_rows,
   sym_order,
   name_order,
   cap_order,
@@ -28,10 +29,32 @@ const DataContainer = ({
   mine_order,
   data
 }) => {
+
+  const arrRow = [];
+
+  const sel_row = (e) => {e.target.classList.toggle('rowSet');
+    if (!arrRow.includes(e.target.parentNode.getAttribute('at'))) {
+      arrRow.push(e.target.parentNode.getAttribute('at'));
+    } else {
+      const index = arrRow.indexOf(e.target.parentNode.getAttribute('at'));
+      arrRow.splice(index, 1);
+    }
+    let nextNode = e.target.nextSibling;
+    while (nextNode) {
+      nextNode.classList.toggle('rowSet');
+      nextNode = nextNode.nextSibling;
+    }
+  };
+
+
+  const handleDel = () => {
+    del_rows(arrRow);
+  };
+
   const rowData = data.map((item, ind) => {
     return (
-      <Row key={data[ind].id}>
-        <Col xs={1} className={"border"}>
+      <Row key={data[ind].id} at={data[ind].id}>
+        <Col xs={1} className={"border"}  onClick = {sel_row}>
           {ind + 1}
         </Col>
         <Col xs={1} className={"border"}>
@@ -65,7 +88,7 @@ const DataContainer = ({
   return (
     <div className="wrapper">
       <Row className="pointer" key="s">
-        <Col xs={1} className="thead border" id="#">
+        <Col xs={1} className="thead border del" id="#" data-title="Delete selected row" onClick={handleDel} >
           #
         </Col>
         <Col
@@ -161,7 +184,8 @@ const mapDispatchToProps = dispatch => {
     c1h_order,
     c24h_order,
     c7d_order,
-    mine_order
+    mine_order,
+    del_rows,
   } = bindActionCreators(actions, dispatch);
 
   return {
@@ -172,7 +196,8 @@ const mapDispatchToProps = dispatch => {
     c1h_order,
     c24h_order,
     c7d_order,
-    mine_order
+    mine_order,
+    del_rows,
   };
 };
 

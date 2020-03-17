@@ -108,8 +108,9 @@ thead::before {
 .download-wrapper {
   cursor: pointer;
   position: absolute;
-  top: 1.2rem;
-  width: 100%;
+  top: 1rem;
+  right: 1.2rem;
+  width: 1.2rem;
   margin: 0 0 0 60rem;
   height: 1.3rem;
 }
@@ -117,8 +118,8 @@ thead::before {
 .download-wrapper:hover::after {
   content: attr(data-title);
   position: absolute;
-  left: 39%;
-  top: -4px;
+  left: -13rem;
+  top: -0.2rem;
   z-index: 50;
   background: white;
   padding: 2px 4px;
@@ -133,4 +134,25 @@ thead::before {
   background-position: center;
   background-repeat: no-repeat;
   background-size: 1.2rem;
+}
+
+.del {}
+
+.del:hover::after {
+  content: attr(data-title);
+  width: 9rem;
+  top: 3rem;
+  position: absolute;
+  z-index: 50;
+  background: white;
+  padding: 2px 4px;
+  border: 1px solid black;
+  border-radius: 4px;
+  color: black;
+  font-size: 0.8rem;
+  font-weight: normal;
+}
+
+.rowSet {
+  background-color: blueviolet;
 }

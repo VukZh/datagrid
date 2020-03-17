@@ -57,7 +57,7 @@ function App() {
               }}
               type="switch"
               id="switchMode"
-              label="Set react-window for table"
+              label="Set virtualization for a table"
             />
           </Form>
           <DownloadCSV />

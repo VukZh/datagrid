@@ -17,7 +17,8 @@ const initialState = {
   filter_c1h: 0,
   filter_c24h: 0,
   filter_c7d: 0,
-  filter_mine: ""
+  filter_mine: "",
+  del_arr:[],
 };
 
 const reducer = (state = initialState, action) => {
@@ -34,6 +35,12 @@ const reducer = (state = initialState, action) => {
 
   const calcChainFilter = () => {
     const f1 = prepareDataForTable.concat();
+
+      state.del_arr.forEach ((item) => {
+      const index = f1.findIndex(i => i.id.toString() === item);
+      f1.splice(index, 1);
+    })       
+
     const f2 =
       state.filter_name !== ""
         ? f1.filter(
@@ -233,6 +240,11 @@ const reducer = (state = initialState, action) => {
         };
       }
 
+      
+    case "DEL_ROWS":
+      state.del_arr = state.del_arr.concat(action.arr);
+      return { ...state, data: calcChainFilter() };      
+
     case "SET_SHFT":
       if (action.key === "Shift") return { ...state, shft_btn: true };
       else return { ...state };
@@ -246,7 +258,6 @@ const reducer = (state = initialState, action) => {
 
     case "UNSET_MODE":
       return { ...state, mode: false };
-
 
     case "MINE_FILTER":
       if (action.val === "true") state.filter_mine = "true";

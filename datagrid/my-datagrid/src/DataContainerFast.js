@@ -20,6 +20,7 @@ const DataContainerFast = ({
   order_c24h,
   order_c7d,
   order_mine,
+  del_rows,
   sym_order,
   name_order,
   cap_order,
@@ -30,9 +31,31 @@ const DataContainerFast = ({
   mine_order,
   data
 }) => {
+
+  const arrRow = [];
+
+  const sel_row = (e) => {e.target.classList.toggle('rowSet');
+    if (!arrRow.includes(e.target.parentNode.getAttribute('at'))) {
+      arrRow.push(e.target.parentNode.getAttribute('at'));
+    } else {
+      const index = arrRow.indexOf(e.target.parentNode.getAttribute('at'));
+      arrRow.splice(index, 1);
+    }
+    let nextNode = e.target.nextSibling;
+    while (nextNode) {
+      nextNode.classList.toggle('rowSet');
+      nextNode = nextNode.nextSibling;
+    }
+  };
+
+
+  const handleDel = () => {
+    del_rows(arrRow);
+  };
+
   const rowDataFast = ({ index, style }) => (
-    <Row style={style} key={data[index].id * 3}>
-      <Col xs={1} className={"border"}>
+    <Row style={style} key={data[index].id} at={data[index].id}>
+      <Col xs={1} className={"border"} onClick = {sel_row}>
         {index + 1}
       </Col>
       <Col xs={1} className={"border"}>
@@ -65,7 +88,7 @@ const DataContainerFast = ({
   return (
     <div className="wrapper">
       <Row className="pointer" key="f">
-        <Col xs={1} className="thead border" id="#">
+        <Col xs={1} className="thead border del" id="#" data-title="Delete selected row" onClick={handleDel} >
           #
         </Col>
         <Col
@@ -169,7 +192,8 @@ const mapDispatchToProps = dispatch => {
     c1h_order,
     c24h_order,
     c7d_order,
-    mine_order
+    mine_order,
+    del_rows,
   } = bindActionCreators(actions, dispatch);
 
   return {
@@ -180,7 +204,8 @@ const mapDispatchToProps = dispatch => {
     c1h_order,
     c24h_order,
     c7d_order,
-    mine_order
+    mine_order,
+    del_rows,
   };
 };
 

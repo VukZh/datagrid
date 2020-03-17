@@ -31,23 +31,22 @@ const DataContainerFast = ({
   mine_order,
   data
 }) => {
-
   const arrRow = [];
 
-  const sel_row = (e) => {e.target.classList.toggle('rowSet');
-    if (!arrRow.includes(e.target.parentNode.getAttribute('at'))) {
-      arrRow.push(e.target.parentNode.getAttribute('at'));
+  const sel_row = e => {
+    e.target.classList.toggle("rowSet");
+    if (!arrRow.includes(e.target.parentNode.getAttribute("at"))) {
+      arrRow.push(e.target.parentNode.getAttribute("at"));
     } else {
-      const index = arrRow.indexOf(e.target.parentNode.getAttribute('at'));
+      const index = arrRow.indexOf(e.target.parentNode.getAttribute("at"));
       arrRow.splice(index, 1);
     }
     let nextNode = e.target.nextSibling;
     while (nextNode) {
-      nextNode.classList.toggle('rowSet');
+      nextNode.classList.toggle("rowSet");
       nextNode = nextNode.nextSibling;
     }
   };
-
 
   const handleDel = () => {
     del_rows(arrRow);
@@ -55,7 +54,7 @@ const DataContainerFast = ({
 
   const rowDataFast = ({ index, style }) => (
     <Row style={style} key={data[index].id} at={data[index].id}>
-      <Col xs={1} className={"border"} onClick = {sel_row}>
+      <Col xs={1} className={"border"} onClick={sel_row}>
         {index + 1}
       </Col>
       <Col xs={1} className={"border"}>
@@ -88,7 +87,13 @@ const DataContainerFast = ({
   return (
     <div className="wrapper">
       <Row className="pointer" key="f">
-        <Col xs={1} className="thead border del" id="#" data-title="Delete selected row" onClick={handleDel} >
+        <Col
+          xs={1}
+          className="thead border del"
+          id="#"
+          data-title="Delete selected row"
+          onClick={handleDel}
+        >
           #
         </Col>
         <Col
@@ -159,7 +164,7 @@ const DataContainerFast = ({
 
       <FixedSizeList
         className="List wrapperF"
-        height={window.innerHeight * 0.82}
+        height={window.innerHeight * 0.87}
         itemCount={data.length}
         itemSize={25}
       >
@@ -193,7 +198,7 @@ const mapDispatchToProps = dispatch => {
     c24h_order,
     c7d_order,
     mine_order,
-    del_rows,
+    del_rows
   } = bindActionCreators(actions, dispatch);
 
   return {
@@ -205,7 +210,7 @@ const mapDispatchToProps = dispatch => {
     c24h_order,
     c7d_order,
     mine_order,
-    del_rows,
+    del_rows
   };
 };
 

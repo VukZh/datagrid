@@ -12,6 +12,7 @@ import thunkMiddleware from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 import Form from "react-bootstrap/Form";
+import initLocalStorage from "./initLocalStorage";
 
 import "./App.css";
 
@@ -44,8 +45,9 @@ document.addEventListener("keyup", e => {
   unset_shft(key);
 });
 
-function App() {
+initLocalStorage();
 
+function App() {
   return (
     <Provider store={store}>
       <div className="App">

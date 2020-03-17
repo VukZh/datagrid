@@ -1,9 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-// import { bindActionCreators } from "redux";
-// import * as actions from "./actions";
-
-// import Table from "react-bootstrap/Table";
 
 const convertToCSV = objArray => {
   const array = JSON.parse(objArray);

@@ -1,70 +1,39 @@
 import prepareDataForTable from "./data/prepareDataForTable.js";
 import * as sort from "./helpersSort.js";
+import * as helpers from "./helpersReducer.js";
 
 const initialState = {
-  order_sym: "thead__align",
-  order_name: "thead__align",
-  order_cap: "thead__align",
-  order_price: "thead__align",
-  order_c1h: "thead__align",
-  order_c24h: "thead__align",
-  order_c7d: "thead__align",
-  order_mine: "thead__align",
+  order_sym: localStorage.getItem("order_sym"),
+  order_name: localStorage.getItem("order_name"),
+  order_cap: localStorage.getItem("order_cap"),
+  order_price: localStorage.getItem("order_price"),
+  order_c1h: localStorage.getItem("order_c1h"),
+  order_c24h: localStorage.getItem("order_c24h"),
+  order_c7d: localStorage.getItem("order_c7d"),
+  order_mine: localStorage.getItem("order_mine"),
   shft_btn: false,
-  data: prepareDataForTable,
+  data: [],
   mode: false,
-  filter_name: "",
-  filter_c1h: 0,
-  filter_c24h: 0,
-  filter_c7d: 0,
-  filter_mine: "",
-  del_arr:[],
+  filter_name: localStorage.getItem("filter_name"),
+  filter_c1h: localStorage.getItem("filter_c1h"),
+  filter_c24h: localStorage.getItem("filter_c24h"),
+  filter_c7d: localStorage.getItem("filter_c7d"),
+  filter_mine: localStorage.getItem("filter_mine"),
+  del_arr: []
 };
 
 const reducer = (state = initialState, action) => {
-  const resetSort = () => {
-    state.order_sym = "thead__align";
-    state.order_name = "thead__align";
-    state.order_cap = "thead__align";
-    state.order_price = "thead__align";
-    state.order_c1h = "thead__align";
-    state.order_c24h = "thead__align";
-    state.order_c7d = "thead__align";
-    state.order_mine = "thead__align";
-  };
+  state.data = helpers.calcChainFilter(state, prepareDataForTable);
 
-  const calcChainFilter = () => {
-    const f1 = prepareDataForTable.concat();
+  helpers.calcSort(state);
 
-      state.del_arr.forEach ((item) => {
-      const index = f1.findIndex(i => i.id.toString() === item);
-      f1.splice(index, 1);
-    })       
-
-    const f2 =
-      state.filter_name !== ""
-        ? f1.filter(
-            item =>
-              item.symbol.toLowerCase().includes(state.filter_name) ||
-              item.name.toLowerCase().includes(state.filter_name)
-          )
-        : f1;
-    const f3 = state.filter_c1h !== 0 ? f2.filter(item => item.c1h > 0) : f2;
-    const f4 = state.filter_c24h !== 0 ? f3.filter(item => item.c24h > 0) : f3;
-    const f5 = state.filter_c7d !== 0 ? f4.filter(item => item.c7d > 0) : f4;
-    let f6;
-    if (state.filter_mine === "true") {
-      f6 = f5.filter(item => item.mine === true);
-    } else if (state.filter_mine === "false") {
-      f6 = f5.filter(item => item.mine === false);
-    } else f6 = f5;
-    return f6;
-  };
+  // else state.data = state.data.sort(sort.sortDef)
 
   switch (action.type) {
     case "SYM_ORDER":
       if (state.order_sym === "thead__align") {
-        resetSort();
+        helpers.resetSort(state);
+        localStorage.setItem("order_sym", "thead__align up");
         return {
           ...state,
           order_sym: "thead__align up",
@@ -72,13 +41,15 @@ const reducer = (state = initialState, action) => {
         };
       }
       if (state.order_sym === "thead__align up") {
-        resetSort();
+        helpers.resetSort(state);
+        localStorage.setItem("order_sym", "thead__align down");
         return {
           ...state,
           order_sym: "thead__align down",
           data: state.data.sort(sort.sortSymD)
         };
       }
+      localStorage.setItem("order_sym", "thead__align");
       return {
         ...state,
         order_sym: "thead__align",
@@ -86,7 +57,8 @@ const reducer = (state = initialState, action) => {
       };
     case "NAME_ORDER":
       if (state.order_name === "thead__align") {
-        resetSort();
+        helpers.resetSort(state);
+        localStorage.setItem("order_name", "thead__align up");
         return {
           ...state,
           order_name: "thead__align up",
@@ -94,13 +66,15 @@ const reducer = (state = initialState, action) => {
         };
       }
       if (state.order_name === "thead__align up") {
-        resetSort();
+        helpers.resetSort(state);
+        localStorage.setItem("order_name", "thead__align down");
         return {
           ...state,
           order_name: "thead__align down",
           data: state.data.sort(sort.sortNameD)
         };
       }
+      localStorage.setItem("order_name", "thead__align");
       return {
         ...state,
         order_name: "thead__align",
@@ -108,7 +82,8 @@ const reducer = (state = initialState, action) => {
       };
     case "CAP_ORDER":
       if (state.order_cap === "thead__align") {
-        resetSort();
+        helpers.resetSort(state);
+        localStorage.setItem("order_cap", "thead__align up");
         return {
           ...state,
           order_cap: "thead__align up",
@@ -116,13 +91,15 @@ const reducer = (state = initialState, action) => {
         };
       }
       if (state.order_cap === "thead__align up") {
-        resetSort();
+        helpers.resetSort(state);
+        localStorage.setItem("order_cap", "thead__align down");
         return {
           ...state,
           order_cap: "thead__align down",
           data: state.data.sort(sort.sortCapD)
         };
       }
+      localStorage.setItem("order_cap", "thead__align");
       return {
         ...state,
         order_cap: "thead__align",
@@ -130,7 +107,8 @@ const reducer = (state = initialState, action) => {
       };
     case "PRICE_ORDER":
       if (state.order_price === "thead__align") {
-        resetSort();
+        helpers.resetSort(state);
+        localStorage.setItem("order_price", "thead__align up");
         return {
           ...state,
           order_price: "thead__align up",
@@ -138,13 +116,15 @@ const reducer = (state = initialState, action) => {
         };
       }
       if (state.order_price === "thead__align up") {
-        resetSort();
+        helpers.resetSort(state);
+        localStorage.setItem("order_price", "thead__align down");
         return {
           ...state,
           order_price: "thead__align down",
           data: state.data.sort(sort.sortPriceD)
         };
       }
+      localStorage.setItem("order_price", "thead__align");
       return {
         ...state,
         order_price: "thead__align",
@@ -152,7 +132,8 @@ const reducer = (state = initialState, action) => {
       };
     case "C1H_ORDER":
       if (state.order_c1h === "thead__align") {
-        resetSort();
+        helpers.resetSort(state);
+        localStorage.setItem("order_c1h", "thead__align up");
         return {
           ...state,
           order_c1h: "thead__align up",
@@ -160,13 +141,15 @@ const reducer = (state = initialState, action) => {
         };
       }
       if (state.order_c1h === "thead__align up") {
-        resetSort();
+        helpers.resetSort(state);
+        localStorage.setItem("order_c1h", "thead__align down");
         return {
           ...state,
           order_c1h: "thead__align down",
           data: state.data.sort(sort.sortC1hD)
         };
       }
+      localStorage.setItem("order_c1h", "thead__align");
       return {
         ...state,
         order_c1h: "thead__align",
@@ -174,7 +157,8 @@ const reducer = (state = initialState, action) => {
       };
     case "C24H_ORDER":
       if (state.order_c24h === "thead__align") {
-        resetSort();
+        helpers.resetSort(state);
+        localStorage.setItem("order_c24h", "thead__align up");
         return {
           ...state,
           order_c24h: "thead__align up",
@@ -182,13 +166,15 @@ const reducer = (state = initialState, action) => {
         };
       }
       if (state.order_c24h === "thead__align up") {
-        resetSort();
+        helpers.resetSort(state);
+        localStorage.setItem("order_c24h", "thead__align down");
         return {
           ...state,
           order_c24h: "thead__align down",
           data: state.data.sort(sort.sortC24hD)
         };
       }
+      localStorage.setItem("order_c24h", "thead__align");
       return {
         ...state,
         order_c24h: "thead__align",
@@ -196,7 +182,8 @@ const reducer = (state = initialState, action) => {
       };
     case "C7D_ORDER":
       if (state.order_c7d === "thead__align") {
-        resetSort();
+        helpers.resetSort(state);
+        localStorage.setItem("order_c7d", "thead__align up");
         return {
           ...state,
           order_c7d: "thead__align up",
@@ -204,13 +191,15 @@ const reducer = (state = initialState, action) => {
         };
       }
       if (state.order_c7d === "thead__align up") {
-        resetSort();
+        helpers.resetSort(state);
+        localStorage.setItem("order_c7d", "thead__align down");
         return {
           ...state,
           order_c7d: "thead__align down",
           data: state.data.sort(sort.sortC7dD)
         };
       }
+      localStorage.setItem("order_c7d", "thead__align");
       return {
         ...state,
         order_c7d: "thead__align",
@@ -218,7 +207,8 @@ const reducer = (state = initialState, action) => {
       };
     case "MINE_ORDER":
       if (state.order_mine === "thead__align") {
-        resetSort();
+        helpers.resetSort(state);
+        localStorage.setItem("order_mine", "thead__align up");
         return {
           ...state,
           order_mine: "thead__align up",
@@ -226,13 +216,15 @@ const reducer = (state = initialState, action) => {
         };
       }
       if (state.order_mine === "thead__align up") {
-        resetSort();
+        helpers.resetSort(state);
+        localStorage.setItem("order_mine", "thead__align down");
         return {
           ...state,
           order_mine: "thead__align down",
           data: state.data.sort(sort.sortMineD)
         };
       } else {
+        localStorage.setItem("order_mine", "thead__align");
         return {
           ...state,
           order_mine: "thead__align",
@@ -240,10 +232,12 @@ const reducer = (state = initialState, action) => {
         };
       }
 
-      
     case "DEL_ROWS":
       state.del_arr = state.del_arr.concat(action.arr);
-      return { ...state, data: calcChainFilter() };      
+      return {
+        ...state,
+        data: helpers.calcChainFilter(state, prepareDataForTable)
+      };
 
     case "SET_SHFT":
       if (action.key === "Shift") return { ...state, shft_btn: true };
@@ -260,27 +254,70 @@ const reducer = (state = initialState, action) => {
       return { ...state, mode: false };
 
     case "MINE_FILTER":
-      if (action.val === "true") state.filter_mine = "true";
-      if (action.val === "false") state.filter_mine = "false";
-      if (action.val === "") state.filter_mine = "";
+      if (action.val === "true") {
+        localStorage.setItem("filter_mine", "true");
+        state.filter_mine = "true";
+      }
+      if (action.val === "false") {
+        localStorage.setItem("filter_mine", "false");
+        state.filter_mine = "false";
+      }
+      if (action.val === "") {
+        localStorage.setItem("filter_mine", "");
+        state.filter_mine = "";
+      }
 
-      return { ...state, data: calcChainFilter() };
+      return {
+        ...state,
+        data: helpers.calcChainFilter(state, prepareDataForTable)
+      };
 
     case "CH1H_FILTER":
-      state.filter_c1h = action.val ? 1 : 0;
-      return { ...state, data: calcChainFilter() };
+      if (action.val) {
+        state.filter_c1h = "1";
+        localStorage.setItem("filter_c1h", "1");
+      } else {
+        state.filter_c1h = "0";
+        localStorage.setItem("filter_c1h", "0");
+      }
+      return {
+        ...state,
+        data: helpers.calcChainFilter(state, prepareDataForTable)
+      };
 
     case "CH24H_FILTER":
-      state.filter_c24h = action.val ? 1 : 0;
-      return { ...state, data: calcChainFilter() };
+      if (action.val) {
+        state.filter_c24h = "1";
+        localStorage.setItem("filter_c24h", "1");
+      } else {
+        state.filter_c24h = "0";
+        localStorage.setItem("filter_c24h", "0");
+      }
+      return {
+        ...state,
+        data: helpers.calcChainFilter(state, prepareDataForTable)
+      };
 
     case "CH7D_FILTER":
-      state.filter_c7d = action.val ? 1 : 0;
-      return { ...state, data: calcChainFilter() };
+      if (action.val) {
+        state.filter_c7d = "1";
+        localStorage.setItem("filter_c7d", "1");
+      } else {
+        state.filter_c7d = "0";
+        localStorage.setItem("filter_c7d", "0");
+      }
+      return {
+        ...state,
+        data: helpers.calcChainFilter(state, prepareDataForTable)
+      };
 
     case "NAME_SEARCH":
       state.filter_name = action.val;
-      return { ...state, data: calcChainFilter() };
+      localStorage.setItem("filter_name", action.val);
+      return {
+        ...state,
+        data: helpers.calcChainFilter(state, prepareDataForTable)
+      };
 
     default:
       return state;

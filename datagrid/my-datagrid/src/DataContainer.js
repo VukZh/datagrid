@@ -1,23 +1,18 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
 
-import DataContainerSlow from './DataContainerSlow';
-import DataContainerFast from './DataContainerFast';
+import DataContainerSlow from "./DataContainerSlow";
+import DataContainerFast from "./DataContainerFast";
 
-const DataContainer = ({mode}) => {
+const DataContainer = ({ mode }) => {
+  if (mode) return <DataContainerFast />;
+  return <DataContainerSlow />;
+};
 
-if (mode) return (
-  <DataContainerFast/>
-)
-  return (
-  <DataContainerSlow/>
-)
-}
-
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    mode: state.mode,
-  }
-}
+    mode: state.mode
+  };
+};
 
 export default connect(mapStateToProps)(DataContainer);

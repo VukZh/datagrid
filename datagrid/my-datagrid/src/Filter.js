@@ -19,6 +19,67 @@ const Filter = ({
   const handleNameSearch = e =>
     name_search(e.target.value.trim("").toLowerCase());
 
+  const c1h = () => {
+    return (
+      <Form.Control
+        as="select"
+        style={{ height: "1.5rem", padding: "0.1rem" }}
+        onChange={handleCh1hFilter}
+        value={localStorage.getItem("filter_c1h")} 
+      >
+        <option value=""></option>
+        <option value="1">> 0</option>
+      </Form.Control>
+    );
+  };
+
+  const c24h = () => {
+    return (
+      <Form.Control
+        as="select"
+        style={{ height: "1.5rem", padding: "0.1rem" }}
+        onChange={handleCh24hFilter}
+        value={localStorage.getItem("filter_c24h")} 
+      >
+        <option value=""></option>
+        <option value="1">> 0</option>
+      </Form.Control>
+    );
+
+    
+  };
+
+  const c7d = () => {
+    return (
+      <Form.Control
+        as="select"
+        style={{ height: "1.5rem", padding: "0.1rem" }}
+        onChange={handleCh7dFilter}
+        value={localStorage.getItem("filter_c7d")} 
+      >
+        <option value=""></option>
+        <option value="1">> 0</option>
+      </Form.Control>
+    );
+  };
+
+  const mine = () => {
+    return (
+      <Form.Control
+        as="select"
+        style={{ height: "1.5rem", padding: "0.1rem" }}
+        onChange={handleMineFilter}
+        value={localStorage.getItem("filter_mine")} 
+      >
+        <option value=""></option>
+        <option value="true">true</option>
+        <option value="false">false</option>
+      </Form.Control>
+    );
+  };
+
+  localStorage.getItem("filter_mine");
+
   return (
     <div className="wrapper">
       <Row className="filter">
@@ -30,52 +91,22 @@ const Filter = ({
                 style={{ height: "1.5rem", padding: "0.1rem 0.5rem" }}
                 placeholder="Search coin..."
                 onChange={handleNameSearch}
+                value={localStorage.getItem("filter_name")}
               />
             </div>
           </Form.Group>
         </Col>
         <Col xs={2}></Col>
         <Col xs={1}></Col>
+        <Col xs={1}>{c1h()}</Col>
         <Col xs={1}>
-          <Form.Control
-            as="select"
-            style={{ height: "1.5rem", padding: "0.1rem" }}
-            onChange={handleCh1hFilter}
-          >
-            <option></option>
-            <option>> 0</option>
-          </Form.Control>
+        {c24h()}
         </Col>
         <Col xs={1}>
-          <Form.Control
-            as="select"
-            style={{ height: "1.5rem", padding: "0.1rem" }}
-            onChange={handleCh24hFilter}
-          >
-            <option></option>
-            <option>> 0</option>
-          </Form.Control>
+        {c7d()}
         </Col>
         <Col xs={1}>
-          <Form.Control
-            as="select"
-            style={{ height: "1.5rem", padding: "0.1rem" }}
-            onChange={handleCh7dFilter}
-          >
-            <option></option>
-            <option>> 0</option>
-          </Form.Control>
-        </Col>
-        <Col xs={1}>
-          <Form.Control
-            as="select"
-            style={{ height: "1.5rem", padding: "0.1rem" }}
-            onChange={handleMineFilter}
-          >
-            <option></option>
-            <option>true</option>
-            <option>false</option>
-          </Form.Control>
+          {mine()}
         </Col>
       </Row>
     </div>

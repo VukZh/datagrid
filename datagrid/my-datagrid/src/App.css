@@ -27,7 +27,6 @@
   width: 100%;
 }
 
-
 .form {
   background-color: #272b30;
   position: sticky;
@@ -136,7 +135,8 @@ thead::before {
   background-size: 1.2rem;
 }
 
-.del {}
+.del {
+}
 
 .del:hover::after {
   content: attr(data-title);
@@ -154,5 +154,5 @@ thead::before {
 }
 
 .rowSet {
-  background-color: blueviolet;
+  background-color: rgba(255, 94, 0, 0.342);
 }

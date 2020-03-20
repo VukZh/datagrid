@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as actions from "./actions";
 
+import ShowCols from "./showCols";
+
 import { Row, Col, Form } from "react-bootstrap";
 
 const Filter = ({
@@ -10,7 +12,10 @@ const Filter = ({
   ch1h_filter,
   ch24h_filter,
   ch7d_filter,
-  name_search
+  name_search,
+  show_column1,
+  show_column2,
+  show_column3
 }) => {
   const handleMineFilter = e => mine_filter(e.target.value);
   const handleCh1hFilter = e => ch1h_filter(e.target.value);
@@ -25,12 +30,18 @@ const Filter = ({
         as="select"
         style={{ height: "1.5rem", padding: "0.1rem" }}
         onChange={handleCh1hFilter}
-        value={localStorage.getItem("filter_c1h")} 
+        value={localStorage.getItem("filter_c1h")}
       >
         <option value=""></option>
         <option value="1">> 0</option>
       </Form.Control>
     );
+  };
+
+  const show1 = () => {
+    if (show_column1 === "1") {
+      return <Col xs={1}>{c1h()}</Col>;
+    }
   };
 
   const c24h = () => {
@@ -39,14 +50,18 @@ const Filter = ({
         as="select"
         style={{ height: "1.5rem", padding: "0.1rem" }}
         onChange={handleCh24hFilter}
-        value={localStorage.getItem("filter_c24h")} 
+        value={localStorage.getItem("filter_c24h")}
       >
         <option value=""></option>
         <option value="1">> 0</option>
       </Form.Control>
     );
+  };
 
-    
+  const show2 = () => {
+    if (show_column2 === "1") {
+      return <Col xs={1}>{c24h()}</Col>;
+    }
   };
 
   const c7d = () => {
@@ -55,12 +70,18 @@ const Filter = ({
         as="select"
         style={{ height: "1.5rem", padding: "0.1rem" }}
         onChange={handleCh7dFilter}
-        value={localStorage.getItem("filter_c7d")} 
+        value={localStorage.getItem("filter_c7d")}
       >
         <option value=""></option>
         <option value="1">> 0</option>
       </Form.Control>
     );
+  };
+
+  const show3 = () => {
+    if (show_column3 === "1") {
+      return <Col xs={1}>{c7d()}</Col>;
+    }
   };
 
   const mine = () => {
@@ -69,7 +90,7 @@ const Filter = ({
         as="select"
         style={{ height: "1.5rem", padding: "0.1rem" }}
         onChange={handleMineFilter}
-        value={localStorage.getItem("filter_mine")} 
+        value={localStorage.getItem("filter_mine")}
       >
         <option value=""></option>
         <option value="true">true</option>
@@ -96,18 +117,13 @@ const Filter = ({
             </div>
           </Form.Group>
         </Col>
-        <Col xs={2}></Col>
-        <Col xs={1}></Col>
-        <Col xs={1}>{c1h()}</Col>
-        <Col xs={1}>
-        {c24h()}
+        <Col xs={3} style={{ padding: "0" }}>
+          <ShowCols />
         </Col>
-        <Col xs={1}>
-        {c7d()}
-        </Col>
-        <Col xs={1}>
-          {mine()}
-        </Col>
+        {show1()}
+        {show2()}
+        {show3()}
+        <Col xs={1}>{mine()}</Col>
       </Row>
     </div>
   );

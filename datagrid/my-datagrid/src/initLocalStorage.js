@@ -1,6 +1,5 @@
 const initLocalStorage = () => {
-    
-//   localStorage.clear();
+  // localStorage.clear();
 
   if (!localStorage.getItem("order_sym")) {
     localStorage.setItem("order_sym", "thead__align");
@@ -42,6 +41,18 @@ const initLocalStorage = () => {
   if (!localStorage.getItem("filter_mine")) {
     localStorage.setItem("filter_mine", "");
   }
+
+  if (!localStorage.getItem("show1")) {
+    localStorage.setItem("show1", "1");
+  }
+  if (!localStorage.getItem("show2")) {
+    localStorage.setItem("show2", "1");
+  }
+  if (!localStorage.getItem("show3")) {
+    localStorage.setItem("show3", "1");
+  }
+
+  localStorage.setItem("mSelect", "false");
 };
 
 export default initLocalStorage;

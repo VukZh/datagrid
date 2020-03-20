@@ -29,22 +29,82 @@ const DataContainerFast = ({
   c24h_order,
   c7d_order,
   mine_order,
-  data
+  data,
+  show_column1,
+  show_column2,
+  show_column3
 }) => {
   const arrRow = [];
 
-  const sel_row = e => {
-    e.target.classList.toggle("rowSet");
-    if (!arrRow.includes(e.target.parentNode.getAttribute("at"))) {
-      arrRow.push(e.target.parentNode.getAttribute("at"));
-    } else {
-      const index = arrRow.indexOf(e.target.parentNode.getAttribute("at"));
-      arrRow.splice(index, 1);
+  const show1h = () => {
+    if (show_column1 === "1") {
+      return (
+        <Col
+          xs={1}
+          className={order_c1h + " border"}
+          id="c1h"
+          onClick={c1h_order}
+        >
+          Change 1h
+        </Col>
+      );
     }
-    let nextNode = e.target.nextSibling;
-    while (nextNode) {
-      nextNode.classList.toggle("rowSet");
-      nextNode = nextNode.nextSibling;
+  };
+  const show1 = index => {
+    if (show_column1 === "1") {
+      return (
+        <Col xs={1} className={"border"}>
+          {numeral(data[index].c1h).format("0.00%")}
+        </Col>
+      );
+    }
+  };
+
+  const show2h = () => {
+    if (show_column2 === "1") {
+      return (
+        <Col
+          xs={1}
+          className={order_c24h + " border"}
+          id="c24h"
+          onClick={c24h_order}
+        >
+          Change 24h
+        </Col>
+      );
+    }
+  };
+  const show2 = index => {
+    if (show_column2 === "1") {
+      return (
+        <Col xs={1} className={"border"}>
+          {numeral(data[index].c24h).format("0.00%")}
+        </Col>
+      );
+    }
+  };
+
+  const show3h = () => {
+    if (show_column3 === "1") {
+      return (
+        <Col
+          xs={1}
+          className={order_c7d + " border"}
+          id="c7d"
+          onClick={c7d_order}
+        >
+          Change 7d
+        </Col>
+      );
+    }
+  };
+  const show3 = index => {
+    if (show_column3 === "1") {
+      return (
+        <Col xs={1} className={"border"}>
+          {numeral(data[index].c7d).format("0.00%")}
+        </Col>
+      );
     }
   };
 
@@ -52,9 +112,45 @@ const DataContainerFast = ({
     del_rows(arrRow);
   };
 
+  const sel_row = e => {
+    if (
+      e.type === "click" ||
+      (e.type === "mouseenter" && localStorage.getItem("mSelect") === "true")
+    ) {
+      e.target.classList.toggle("rowSet");
+      if (!arrRow.includes(e.target.parentNode.getAttribute("at"))) {
+        arrRow.push(e.target.parentNode.getAttribute("at"));
+      } else {
+        const index = arrRow.indexOf(e.target.parentNode.getAttribute("at"));
+        arrRow.splice(index, 1);
+      }
+      let nextNode = e.target.nextSibling;
+      while (nextNode) {
+        nextNode.classList.toggle("rowSet");
+        nextNode = nextNode.nextSibling;
+      }
+    }
+
+    if (e.type === "mousedown") {
+      localStorage.setItem("mSelect", "true");
+    }
+
+    if (e.type === "mouseup") {
+      localStorage.setItem("mSelect", "false");
+    }
+  };
+
   const rowDataFast = ({ index, style }) => (
     <Row style={style} key={data[index].id} at={data[index].id}>
-      <Col xs={1} className={"border"} onClick={sel_row}>
+      <Col
+        xs={1}
+        className={"border"}
+        onClick={sel_row}
+        onMouseEnter={sel_row}
+        onMouseDown={sel_row}
+        onMouseUp={sel_row}
+        style={{ cursor: "pointer", userSelect: "none" }}
+      >
         {index + 1}
       </Col>
       <Col xs={1} className={"border"}>
@@ -69,15 +165,9 @@ const DataContainerFast = ({
       <Col xs={1} className={"border"}>
         {numeral(data[index].price).format("$0,0.00")}
       </Col>
-      <Col xs={1} className={"border"}>
-        {numeral(data[index].c1h).format("0.00%")}
-      </Col>
-      <Col xs={1} className={"border"}>
-        {numeral(data[index].c24h).format("0.00%")}
-      </Col>
-      <Col xs={1} className={"border"}>
-        {numeral(data[index].c7d).format("0.00%")}
-      </Col>
+      {show1(index)}
+      {show2(index)}
+      {show3(index)}
       <Col xs={1} className={"border"}>
         {data[index].mine && <div className="mining"></div>}
       </Col>
@@ -128,30 +218,11 @@ const DataContainerFast = ({
         >
           Price
         </Col>
-        <Col
-          xs={1}
-          className={order_c1h + " border"}
-          id="c1h"
-          onClick={c1h_order}
-        >
-          Change 1h
-        </Col>
-        <Col
-          xs={1}
-          className={order_c24h + " border"}
-          id="c24h"
-          onClick={c24h_order}
-        >
-          Change 24h
-        </Col>
-        <Col
-          xs={1}
-          className={order_c7d + " border"}
-          id="c7d"
-          onClick={c7d_order}
-        >
-          Change 7d
-        </Col>
+
+        {show1h()}
+        {show2h()}
+        {show3h()}
+
         <Col
           xs={1}
           className={order_mine + " border"}
@@ -184,7 +255,10 @@ const mapStateToProps = state => {
     order_c24h: state.order_c24h,
     order_c7d: state.order_c7d,
     order_mine: state.order_mine,
-    data: state.data
+    data: state.data,
+    show_column1: state.show_column1,
+    show_column2: state.show_column2,
+    show_column3: state.show_column3
   };
 };
 

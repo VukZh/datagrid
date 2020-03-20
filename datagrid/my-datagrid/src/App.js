@@ -31,19 +31,7 @@ const store = createStore(
 
 const { dispatch } = store;
 
-const { set_shft, unset_shft, set_mode, unset_mode } = bindActionCreators(
-  actions,
-  dispatch
-);
-
-document.addEventListener("keydown", e => {
-  const key = e.key;
-  set_shft(key);
-});
-document.addEventListener("keyup", e => {
-  const key = e.key;
-  unset_shft(key);
-});
+const { set_mode, unset_mode } = bindActionCreators(actions, dispatch);
 
 initLocalStorage();
 

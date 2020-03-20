@@ -11,7 +11,6 @@ const initialState = {
   order_c24h: localStorage.getItem("order_c24h"),
   order_c7d: localStorage.getItem("order_c7d"),
   order_mine: localStorage.getItem("order_mine"),
-  shft_btn: false,
   data: [],
   mode: false,
   filter_name: localStorage.getItem("filter_name"),
@@ -19,15 +18,16 @@ const initialState = {
   filter_c24h: localStorage.getItem("filter_c24h"),
   filter_c7d: localStorage.getItem("filter_c7d"),
   filter_mine: localStorage.getItem("filter_mine"),
-  del_arr: []
+  del_arr: [],
+  show_column1: localStorage.getItem("show1"),
+  show_column2: localStorage.getItem("show2"),
+  show_column3: localStorage.getItem("show3")
 };
 
 const reducer = (state = initialState, action) => {
   state.data = helpers.calcChainFilter(state, prepareDataForTable);
 
   helpers.calcSort(state);
-
-  // else state.data = state.data.sort(sort.sortDef)
 
   switch (action.type) {
     case "SYM_ORDER":
@@ -239,14 +239,6 @@ const reducer = (state = initialState, action) => {
         data: helpers.calcChainFilter(state, prepareDataForTable)
       };
 
-    case "SET_SHFT":
-      if (action.key === "Shift") return { ...state, shft_btn: true };
-      else return { ...state };
-
-    case "UNSET_SHFT":
-      if (action.key === "Shift") return { ...state, shft_btn: false };
-      else return { ...state };
-
     case "SET_MODE":
       return { ...state, mode: true };
 
@@ -317,6 +309,28 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         data: helpers.calcChainFilter(state, prepareDataForTable)
+      };
+
+    case "SHOW_COL1":
+      const flag1 = action.val ? "1" : "0";
+      localStorage.setItem("show1", flag1);
+      return {
+        ...state,
+        show_column1: flag1
+      };
+    case "SHOW_COL2":
+      const flag2 = action.val ? "1" : "0";
+      localStorage.setItem("show2", flag2);
+      return {
+        ...state,
+        show_column2: flag2
+      };
+    case "SHOW_COL3":
+      const flag3 = action.val ? "1" : "0";
+      localStorage.setItem("show3", flag3);
+      return {
+        ...state,
+        show_column3: flag3
       };
 
     default:

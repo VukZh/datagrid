@@ -21,7 +21,8 @@ const initialState = {
   del_arr: [],
   show_column1: localStorage.getItem("show1"),
   show_column2: localStorage.getItem("show2"),
-  show_column3: localStorage.getItem("show3")
+  show_column3: localStorage.getItem("show3"),
+  sym: localStorage.getItem("sym")
 };
 
 const reducer = (state = initialState, action) => {
@@ -331,6 +332,14 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         show_column3: flag3
+      };
+
+    case "SYM_SELECT":
+      localStorage.setItem("sym", action.val);
+      state.sym = action.val;
+      return {
+        ...state,
+        data: helpers.calcChainFilter(state, prepareDataForTable)
       };
 
     default:

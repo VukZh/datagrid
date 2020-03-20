@@ -51,6 +51,9 @@ const initLocalStorage = () => {
   if (!localStorage.getItem("show3")) {
     localStorage.setItem("show3", "1");
   }
+  if (!localStorage.getItem("sym")) {
+    localStorage.setItem("sym", "--All--");
+  }
 
   localStorage.setItem("mSelect", "false");
 };

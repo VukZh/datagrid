@@ -44,7 +44,9 @@ export const calcChainFilter = (state, prepareDataForTable) => {
   } else if (state.filter_mine === "false") {
     f6 = f5.filter(item => item.mine === false);
   } else f6 = f5;
-  return f6;
+  const f7 =
+    state.sym === "--All--" ? f6 : f6.filter(item => item.symbol === state.sym);
+  return f7;
 };
 
 export const calcSort = state => {

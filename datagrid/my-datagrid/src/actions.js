@@ -16,6 +16,7 @@ export const ch1h_filter = val => ({ type: "CH1H_FILTER", val });
 export const ch24h_filter = val => ({ type: "CH24H_FILTER", val });
 export const ch7d_filter = val => ({ type: "CH7D_FILTER", val });
 export const name_search = val => ({ type: "NAME_SEARCH", val });
+export const sym_select = val => ({ type: "SYM_SELECT", val });
 
 export const show_col1 = val => ({ type: "SHOW_COL1", val });
 export const show_col2 = val => ({ type: "SHOW_COL2", val });

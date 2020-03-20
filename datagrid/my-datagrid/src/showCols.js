@@ -41,7 +41,11 @@ const ShowCols = ({ show_col1, show_col2, show_col3 }) => {
   );
 };
 
-const mapStateToProps = state => state;
+const mapStateToProps = state => {
+  return {
+    data: state.data
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   const { show_col1, show_col2, show_col3 } = bindActionCreators(

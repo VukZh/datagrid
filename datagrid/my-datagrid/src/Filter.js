@@ -15,7 +15,9 @@ const Filter = ({
   name_search,
   show_column1,
   show_column2,
-  show_column3
+  show_column3,
+  sym_select,
+  data
 }) => {
   const handleMineFilter = e => mine_filter(e.target.value);
   const handleCh1hFilter = e => ch1h_filter(e.target.value);
@@ -23,6 +25,22 @@ const Filter = ({
   const handleCh7dFilter = e => ch7d_filter(e.target.value);
   const handleNameSearch = e =>
     name_search(e.target.value.trim("").toLowerCase());
+  const handleSymSelect = e => sym_select(e.target.value);
+
+  const searchName = () => {
+    return (
+      <Form.Group as={Row}>
+        <div style={{ display: "flex", width: "100%" }}>
+          <Form.Control
+            style={{ height: "1.5rem", padding: "0.1rem 0.5rem" }}
+            placeholder="Search coin..."
+            onChange={handleNameSearch}
+            value={localStorage.getItem("filter_name")}
+          />
+        </div>
+      </Form.Group>
+    );
+  };
 
   const c1h = () => {
     return (
@@ -99,24 +117,42 @@ const Filter = ({
     );
   };
 
+  const currOption = data.map(item => (
+    <option value={item.symbol} key={item.id}>
+      {item.symbol}
+    </option>
+  ));
+  currOption.unshift(
+    <option value="--All--" key="00001">
+      --All--
+    </option>
+  );
+
+  const enumFilter = () => {
+    return (
+      <Form.Control
+        as="select"
+        style={{ height: "1.5rem", padding: "0.1rem" }}
+        onChange={handleSymSelect}
+        value={localStorage.getItem("sym")}
+      >
+        {currOption}
+      </Form.Control>
+    );
+  };
+
+  const show4 = () => {
+    return <Col xs={1}>{enumFilter()}</Col>;
+  };
+
   localStorage.getItem("filter_mine");
 
   return (
     <div className="wrapper">
       <Row className="filter">
         <Col xs={1}></Col>
-        <Col xs={3}>
-          <Form.Group as={Row}>
-            <div style={{ display: "flex", width: "100%" }}>
-              <Form.Control
-                style={{ height: "1.5rem", padding: "0.1rem 0.5rem" }}
-                placeholder="Search coin..."
-                onChange={handleNameSearch}
-                value={localStorage.getItem("filter_name")}
-              />
-            </div>
-          </Form.Group>
-        </Col>
+        {show4()}
+        <Col xs={2}>{searchName()}</Col>
         <Col xs={3} style={{ padding: "0" }}>
           <ShowCols />
         </Col>
@@ -137,7 +173,8 @@ const mapDispatchToProps = dispatch => {
     ch1h_filter,
     ch24h_filter,
     ch7d_filter,
-    name_search
+    name_search,
+    sym_select
   } = bindActionCreators(actions, dispatch);
 
   return {
@@ -145,7 +182,8 @@ const mapDispatchToProps = dispatch => {
     ch24h_filter,
     ch7d_filter,
     mine_filter,
-    name_search
+    name_search,
+    sym_select
   };
 };
 
